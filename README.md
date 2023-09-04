@@ -1,10 +1,10 @@
 # How to run the project
-1. Add an .env file that contains the following
+1. Add an **.env** file that contains the following
 
     ```
     CYPRESS_REMOTE_DEBUGGING_PORT=9222
     ```
-2. Add a cypress.env.json file that contains the following
+2. Add a **cypress.env.json** file that contains the following
 
     ```
     {

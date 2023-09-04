@@ -5,3 +5,4 @@ node_modules
 /cypress.env.json
 
 /cypress/videos
+/cypress/screenshots

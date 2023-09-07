@@ -1,5 +1,5 @@
 const SECRET_WORDS = Cypress.env("SECRET_WORDS");
-const NETWORK_NAME = Cypress.env("NEWWORK_NAME");
+const NETWORK_NAME = Cypress.env("NEtWORK_NAME");
 const PASSWORD = Cypress.env("PASSWORD");
 
 describe("connect wallet spec", () => {

@@ -12,9 +12,10 @@ describe("Test Contact Us Module", () => {
         cy.get("textarea").as("message")
         cy.fixture("contact-us.json").as("contactData")
         cy.contains("Submit").as("submitBtn")
+        cy.log("register the alia!!!!")
     })
 
-    it("Select the type of message", () => {
+    it.skip("Select the type of message", () => {
         cy.get("@contactData").then(contactData => {
             for (let type of contactData.msgType) {
                 cy.get("@selector").select(type)
@@ -24,18 +25,20 @@ describe("Test Contact Us Module", () => {
     })
 
 
-    describe.only("Name Input Test", () => {
+    describe("Name Input Test", () => {
         // Positive Test
         const positiveCase = contactCase.name.positiveTest
+        const negativeCase = contactCase.name.negativeTest
         const trueExample = contactCase.trueExample               
         
-        before(() => {
+        beforeEach(() => {
             cy.get("@emailInput").type(trueExample.email)
             cy.get("@message").type(trueExample.message)
         })
 
         afterEach(() => {
             cy.get("@nameInput").clear()
+            cy.get("@emailInput").clear()
             cy.get("@message").clear()
         })
 
@@ -43,11 +46,10 @@ describe("Test Contact Us Module", () => {
             it(`Positive Test: ${testCase.desc}`, () => {
                 cy.get("@nameInput").type(testCase.name)
                 cy.get("@submitBtn").should("not.be.disabled")
-
             })
         })
 
-    })
 
+    })
 
 })

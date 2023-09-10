@@ -26,7 +26,6 @@ describe("Test Contact Us Module", () => {
 
 
     describe("Name Input Test", () => {
-        // Positive Test
         const positiveCase = contactCase.name.positiveTest
         const negativeCase = contactCase.name.negativeTest
         const trueExample = contactCase.trueExample               
@@ -42,6 +41,7 @@ describe("Test Contact Us Module", () => {
             cy.get("@message").clear()
         })
 
+        // Positive Test
         positiveCase.forEach(testCase => {
             it(`Positive Test: ${testCase.desc}`, () => {
                 cy.get("@nameInput").type(testCase.name)
@@ -49,7 +49,22 @@ describe("Test Contact Us Module", () => {
             })
         })
 
+        // Negative Test
+        negativeCase.forEach(testCase => {
+            it(`Negative Test: ${testCase.desc}`, () => {
+                cy.get("@nameInput").type(testCase.name)
+                cy.get("@submitBtn").should("be.disabled")
+                if (testCase.assertion) {
+                    cy.contains(testCase.assertion)
+                }
+            })
+        })
+
+        it("Empty Test", () => {
+            cy.get("@submitBtn").should("be.disabled")
+        })
 
     })
 
+    
 })

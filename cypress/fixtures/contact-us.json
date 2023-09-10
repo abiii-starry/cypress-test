@@ -29,14 +29,22 @@
             {
                 "desc": "Last name and first name",
                 "name": "Mark Elliot Musk"
+            },
+            {
+                "desc": "Special characters",
+                "name": "~`!@#$%^&*)(/\\|"
             }
         ],
         "negativeTest": [
-            "",
-            "&nbsp",
-            "\n",
-            null,
-            false
+            {
+                "desc": "Space",
+                "name": "  ",
+                "assertion": "Please enter your name"
+            },
+            {
+                "desc": "Escape Character",
+                "name": "\n"
+            }
         ]
     },
     "email": {

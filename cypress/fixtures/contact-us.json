@@ -6,15 +6,34 @@
     ],
     "name": {
         "positiveTest": [
-            "test",
-            "测试",
-            "испытание",
-            "테스트",
-            "⭐test⭐",
-            "Mark Elliot Musk"
+            {
+                "desc": "English word",
+                "name": "test"
+            },
+            {
+                "desc": "Chinese word",
+                "name": "测试"
+            },
+            {
+                "desc": "Russian word",
+                "name": "испытание"
+            },
+            {
+                "desc": "Korean word",
+                "name": "테스트"
+            },
+            {
+                "desc": "Include emoji",
+                "name": "⭐test⭐"
+            },
+            {
+                "desc": "Last name and first name",
+                "name": "Mark Elliot Musk"
+            }
         ],
         "negativeTest": [
             "",
+            "&nbsp",
             "\n",
             null,
             false

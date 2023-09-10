@@ -3,5 +3,42 @@
         "General question",
         "Technical issue",
         "Feedback"
-    ]
+    ],
+    "name": {
+        "positiveTest": [
+            "test",
+            "测试",
+            "испытание",
+            "테스트",
+            "⭐test⭐",
+            "Mark Elliot Musk"
+        ],
+        "negativeTest": [
+            "",
+            "\n",
+            null,
+            false
+        ]
+    },
+    "email": {
+        "positiveTest": [
+
+        ],
+        "negativeTest": [
+
+        ]
+    },
+    "message": {
+        "positiveTest": [
+
+        ],
+        "negativeTest": [
+
+        ]
+    },
+    "trueExample": {
+        "name": "Test",
+        "email": "example@test.staking.com",
+        "message": "I have some questions.\nI hope they get resolved."
+    }
 }

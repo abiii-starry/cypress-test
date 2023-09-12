@@ -13,5 +13,4 @@ module.exports = defineConfig({
     baseUrl: "https://pre.stake.dxpool.in",
     supportFile: "cypress/support/e2e.js"
   },
-  env: {}
 });

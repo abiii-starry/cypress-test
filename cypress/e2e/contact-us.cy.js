@@ -1,5 +1,5 @@
 describe("Test Contact Us Module", () => {
-    const contactCase = require('../fixtures/contact-us.json')
+    const contactCase = require("../fixtures/contact-us.json")
 
     before(() => {
         cy.visit("/contact")
@@ -12,7 +12,6 @@ describe("Test Contact Us Module", () => {
         cy.get("textarea").as("message")
         cy.fixture("contact-us.json").as("contactData")
         cy.contains("Submit").as("submitBtn")
-        cy.log("register the alia!!!!")
     })
 
     it.skip("Select the type of message", () => {
@@ -66,5 +65,5 @@ describe("Test Contact Us Module", () => {
 
     })
 
-    
+
 })

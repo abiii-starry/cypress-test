@@ -4,7 +4,7 @@
         "Technical issue",
         "Feedback"
     ],
-    "name": {
+    "nameCase": {
         "positiveTest": [
             {
                 "desc": "English word",
@@ -47,15 +47,65 @@
             }
         ]
     },
-    "email": {
+    "emailCase": {
         "positiveTest": [
-
+            {
+                "desc": "General email",
+                "email": "test888@dxpool888.com"
+            },
+            {
+                "desc": "Multi-level domain email",
+                "email": "test@stake.dxpool.com"
+            },
+            {
+                "desc": "Username contains dot",
+                "email": "test.example@dxpool.com"
+            },
+            {
+                "desc": "Username contains underscores",
+                "email": "test_example@dxpool.com"
+            },
+            {
+                "desc": "Special top-level domain",
+                "email": "test@dxpool.test"
+            }
         ],
         "negativeTest": [
-
+            {
+                "desc": "Missing top-level domain",
+                "email": "test@dxpool"
+            },
+            {
+                "desc": "Missing username",
+                "email": "@dxpool.com"
+            },
+            {
+                "desc": "Missing domain",
+                "email": "test@.com"
+            },
+            {
+                "desc": "Missing @",
+                "email": "testdxpool.com"
+            },
+            {
+                "desc": "Missing dot",
+                "email": "test@dxpoolcom"
+            },
+            {
+                "desc": "Missing username and domain",
+                "email": ".com"
+            },
+            {
+                "desc": "Space",
+                "email": "   "
+            },
+            {
+                "desc": "Contains non-English characters",
+                "email": "测试@dxpool.com"
+            }
         ]
     },
-    "message": {
+    "messageCase": {
         "positiveTest": [
 
         ],

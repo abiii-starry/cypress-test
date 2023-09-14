@@ -9,7 +9,7 @@ describe("Test Contact Us Module", () => {
         cy.get("select").as("selector")
         cy.get("input").eq(0).as("nameInput")
         cy.get("input").eq(1).as("emailInput")
-        cy.get("textarea").as("message")
+        cy.get("textarea").as("messageTextarea")
         cy.fixture("contact-us.json").as("contactData")
         cy.contains("Submit").as("submitBtn")
     })
@@ -31,13 +31,13 @@ describe("Test Contact Us Module", () => {
         
         beforeEach(() => {
             cy.get("@emailInput").type(trueExample.email)
-            cy.get("@message").type(trueExample.message)
+            cy.get("@messageTextarea").type(trueExample.message)
         })
 
         afterEach(() => {
             cy.get("@nameInput").clear()
             cy.get("@emailInput").clear()
-            cy.get("@message").clear()
+            cy.get("@messageTextarea").clear()
         })
 
         // Positive Test
@@ -73,13 +73,13 @@ describe("Test Contact Us Module", () => {
 
         beforeEach(() => {
             cy.get("@nameInput").type(trueExample.name)
-            cy.get("@message").type(trueExample.message)
+            cy.get("@messageTextarea").type(trueExample.message)
         })
 
         afterEach(() => {
             cy.get("@nameInput").clear()
             cy.get("@emailInput").clear()
-            cy.get("@message").clear()
+            cy.get("@messageTextarea").clear()
         })
 
         // Positive Test
@@ -98,6 +98,36 @@ describe("Test Contact Us Module", () => {
                 if (testCase.assertion) {
                     cy.contains("Please enter a valid email address")
                 }
+            })
+        })
+
+        it("Empty Test", () => {
+            cy.get("@submitBtn").should("be.disabled")
+        })
+
+    })
+
+
+    describe("Message Textarea Test", () => {
+        const positiveCase = contactCase.messageCase.positiveTest
+        const trueExample = contactCase.trueExample   
+        
+        beforeEach(() => {
+            cy.get("@nameInput").type(trueExample.name)
+            cy.get("@emailInput").type(trueExample.email)
+        })
+
+        afterEach(() => {
+            cy.get("@nameInput").clear()
+            cy.get("@emailInput").clear()
+            cy.get("@messageTextarea").clear()
+        })
+        
+        // Positive Test
+        positiveCase.forEach(testCase => {
+            it(`Positive Test: ${testCase.desc}`, () => {
+                cy.get("@messageTextarea").type(testCase.message)
+                cy.get("@submitBtn").should("not.be.disabled")
             })
         })
 

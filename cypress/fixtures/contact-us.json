@@ -4,6 +4,7 @@
         "Technical issue",
         "Feedback"
     ],
+
     "nameCase": {
         "positiveTest": [
             {
@@ -47,6 +48,7 @@
             }
         ]
     },
+
     "emailCase": {
         "positiveTest": [
             {
@@ -105,14 +107,39 @@
             }
         ]
     },
+
     "messageCase": {
         "positiveTest": [
-
+            {
+                "desc": "Contains emoji",
+                "message": "♥I have some questions♥"
+            },
+            {
+                "desc": "HTML",
+                "message": "<html><head><head><body><p>I have some questions</p></body></html>"
+            },
+            {
+                "desc": "Chinese message",
+                "message": "我遇到一些问题"
+            },
+            {
+                "desc": "Russian message",
+                "message": "У меня возникли некоторые проблемы."
+            },
+            {
+                "desc": "Korean message",
+                "message": "몇 가지 문제가 있습니다"
+            },
+            {
+                "desc": "Null",
+                "message": "null"
+            }
         ],
         "negativeTest": [
-
+            "null"
         ]
     },
+
     "trueExample": {
         "name": "Test",
         "email": "example@test.staking.com",

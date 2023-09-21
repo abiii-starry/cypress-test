@@ -4,7 +4,6 @@
         "Technical issue",
         "Feedback"
     ],
-
     "nameCase": {
         "positiveTest": [
             {
@@ -48,7 +47,6 @@
             }
         ]
     },
-
     "emailCase": {
         "positiveTest": [
             {
@@ -107,7 +105,6 @@
             }
         ]
     },
-
     "messageCase": {
         "positiveTest": [
             {
@@ -139,7 +136,6 @@
             "null"
         ]
     },
-
     "trueExample": {
         "name": "Test",
         "email": "example@test.staking.com",

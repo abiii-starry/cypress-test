@@ -10,7 +10,7 @@ module.exports = defineConfig({
       synpressPlugins(on, config);
     },
     testIsolation: false,
-    baseUrl: "https://pre.stake.dxpool.in",
+    baseUrl: "https://stake.dxpool.com",
     supportFile: "cypress/support/e2e.js"
   },
 });

@@ -1,5 +1,6 @@
 describe("Test Contact Us Module", () => {
     const contactCase = require("../fixtures/contact-us.json")
+    const trueExample = contactCase.trueExample 
 
     before(() => {
         cy.visit("/contact")
@@ -26,8 +27,7 @@ describe("Test Contact Us Module", () => {
 
     describe("Name Input Test", () => {
         const positiveCase = contactCase.nameCase.positiveTest
-        const negativeCase = contactCase.nameCase.negativeTest
-        const trueExample = contactCase.trueExample               
+        const negativeCase = contactCase.nameCase.negativeTest            
         
         beforeEach(() => {
             cy.get("@emailInput").type(trueExample.email)
@@ -68,8 +68,7 @@ describe("Test Contact Us Module", () => {
 
     describe("Email Input Test", () => {
         const positiveCase = contactCase.emailCase.positiveTest
-        const negativeCase = contactCase.emailCase.negativeTest
-        const trueExample = contactCase.trueExample    
+        const negativeCase = contactCase.emailCase.negativeTest 
 
         beforeEach(() => {
             cy.get("@nameInput").type(trueExample.name)
@@ -109,8 +108,7 @@ describe("Test Contact Us Module", () => {
 
 
     describe("Message Textarea Test", () => {
-        const positiveCase = contactCase.messageCase.positiveTest
-        const trueExample = contactCase.trueExample   
+        const positiveCase = contactCase.messageCase.positiveTest   
         
         beforeEach(() => {
             cy.get("@nameInput").type(trueExample.name)
@@ -135,6 +133,22 @@ describe("Test Contact Us Module", () => {
             cy.get("@submitBtn").should("be.disabled")
         })
 
+    })
+
+    
+    describe("Submit Button Test", () => {
+        const msgType = contactCase.msgType
+        // const trueExample = contactCase.trueExample 
+
+        it("Normal submission", () => {
+                cy.get("@selector").select(msgType[Math.floor(Math.random()*msgType.length)])
+                cy.get("@nameInput").type(trueExample.name)
+                cy.get("@emailInput").type(trueExample.email)
+                cy.get("@messageTextarea").type(trueExample.message)
+                cy.get("@submitBtn").click()
+                cy.contains("Sent Successfully")
+            
+        })
     })
 
 

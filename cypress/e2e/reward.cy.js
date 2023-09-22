@@ -2,6 +2,8 @@ describe("Reward Module", () => {
     const NETWORK = Cypress.env("NETWORK_GOERLI")
     const SECRET_WORDS = Cypress.env("SECRET_WORDS")
     const PASSWORD = Cypress.env("PASSWORD")
+    const ADDRESS = Cypress.env("ACCOUNT_ADDRESS")
+    const EMPTY_ADDRESS = "0x7f0532786c3ec337e42272ab035219f8cbda676f"
 
     before(() => {
         cy.visit("ethereum/reward")
@@ -15,11 +17,17 @@ describe("Reward Module", () => {
             method: "GET",
             url: "api/v1/networks/eth/rewards/summary",
             qs: {
-                network_type: "goerli",
-                address: "0xf1db32fe9c7a3f94e03b70d896da8dadc103ed43"
+                network_type: NETWORK,
+                address: EMPTY_ADDRESS
             }
         }).then(rep => {
             cy.log(rep.body.total_earn)
+            if (! rep.body.total_earn) {
+                cy.contains("No Data")
+            }
+            else {
+                // pass: data is obtained
+            }
         })
     })
 

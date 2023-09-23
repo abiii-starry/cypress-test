@@ -25,20 +25,6 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 
-// Check if the connection has been successfully made: Local storage gets the address
-Cypress.Commands.add("isConnect", () => {
-    const local = Cypress.config("baseUrl");
-    const userKey = "user";
-    cy.getAllLocalStorage().then(localStorage => {
-        let userString = localStorage[local][userKey]
-        let userJson = JSON.parse(userString)
-        let connectStatus = userJson["isConnected"]
-
-        cy.wrap(connectStatus).as("connectStatus")
-    })
-})
-
-
 // Switch chain in staking web
 Cypress.Commands.add("switchChain", (chain) => {
     cy.get("#headlessui-listbox-button-1").click();

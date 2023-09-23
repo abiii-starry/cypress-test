@@ -27,8 +27,15 @@
 
 // Switch chain in staking web
 Cypress.Commands.add("switchChain", (chain) => {
-    cy.get("#headlessui-listbox-button-1").click();
-    cy.get("#headlessui-listbox-options-2").contains(chain, { matchCase: false }).click();
+    cy.get("#headlessui-listbox-button-1").click()
+    cy.get("#headlessui-listbox-options-2").contains(chain, { matchCase: false }).click()
+})
+
+
+// Disconnect Metamask from Web
+Cypress.Commands.add("disconnectWeb", (chain) => {
+    cy.get('[id^=headlessui-menu-button-]').click()
+    cy.contains(" Disconnect Wallet ", { matchCase: false }).click()
 })
 
 

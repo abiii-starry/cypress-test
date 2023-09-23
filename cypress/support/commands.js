@@ -28,11 +28,12 @@
 // Check if the connection has been successfully made: Local storage gets the address
 Cypress.Commands.add("isConnect", () => {
     const local = Cypress.config("baseUrl");
-    const successKey = "user";
+    const userKey = "user";
     cy.getAllLocalStorage().then(localStorage => {
-        let userJson = JSON.parse(localStorage[local])
-        let connectStatus = userJson[successKey]["isConnect"]
-        cy.log(`Connect Status: ${connectStatus}`)
+        let userString = localStorage[local][userKey]
+        let userJson = JSON.parse(userString)
+        let connectStatus = userJson["isConnected"]
+
         cy.wrap(connectStatus).as("connectStatus")
     })
 })
@@ -46,10 +47,24 @@ Cypress.Commands.add("switchChain", (chain) => {
 
 
 // Connect via Metamask
-Cypress.Commands.add("connectMetamask", (secret_words, network,password) => {
-    cy.setupMetamask(secret_words, network, password)
+Cypress.Commands.add("connectMetamask", (secret_words, network, password) => {
+    const local = Cypress.config("baseUrl");
+    const userKey = "user";
+    cy.getAllLocalStorage().then(localStorage => {
+        let userString = localStorage[local][userKey]
+        let userJson = JSON.parse(userString)
+        const connectStatus = userJson["isConnected"]
 
-    cy.get('.space-x-4 > .btn-primary').click()
-    cy.contains('MetaMask', {includeShadowDom: true}).click()
-    cy.acceptMetamaskAccess()
+        if (connectStatus == "false") {
+            cy.log("Connecting")
+            cy.setupMetamask(secret_words, network, password)
+            cy.get('.space-x-4 > .btn-primary').click()
+            cy.contains('MetaMask', {includeShadowDom: true}).click()
+            cy.acceptMetamaskAccess()
+        }
+        else {
+            cy.log("Connected")
+        }
+        
+    })
 })

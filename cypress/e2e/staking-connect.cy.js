@@ -5,7 +5,7 @@ const NETWORK_MAINNET = Cypress.env("NETWORK_MAINNET");
 
 describe("Test connect staking web", () => {
     before(() => {
-        cy.setupMetamask(SECRET_WORDS, NETWORK_GOERLI, PASSWORD);
+        // cy.setupMetamask(SECRET_WORDS, NETWORK_GOERLI, PASSWORD);
         cy.visit('/ethereum/staking?step=1');
         cy.switchChain(NETWORK_GOERLI);
         cy.contains('Connect')

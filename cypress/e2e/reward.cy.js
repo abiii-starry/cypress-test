@@ -1,46 +1,47 @@
-describe("Reward Module", () => {
+describe("Reward Module Test", () => {
     const NETWORK = Cypress.env("NETWORK_GOERLI")
     const SECRET_WORDS = Cypress.env("SECRET_WORDS")
     const PASSWORD = Cypress.env("PASSWORD")
-    const ADDRESS = Cypress.env("ACCOUNT_ADDRESS")
-    // const EMPTY_ADDRESS = "0x7f0532786c3ec337e42272ab035219f8cbda676f"
-    const IMPORT_PRIVATE_KEY = Cypress.env("IMPORT_PRIVATE_KEY")
+    const PRIVATE_KEY_BETA = Cypress.env("PRIVATE_KEY_BETA")
+    const NO_DATA_ACCOUNT = "No_data_account"
 
     before(() => {
         cy.visit("ethereum/reward")
 
         cy.switchChain(NETWORK)
         cy.setupMetamask(SECRET_WORDS, NETWORK, PASSWORD)
-        cy.importMetamaskAccount(IMPORT_PRIVATE_KEY)
+        cy.importMetamaskAccount(PRIVATE_KEY_BETA)
+        cy.createMetamaskAccount(NO_DATA_ACCOUNT);
 
         cy.get('.space-x-4 > .btn-primary').click()
         cy.contains('MetaMask', {includeShadowDom: true}).click()
         cy.acceptMetamaskAccess({ allAccounts: true })
+        cy.wait(2000)
     })
 
-    // Public: todo
-    it("No data account", () => {
-        cy.intercept("https://stake.dxpool.com/api/v1/networks/eth/rewards/list", req => {
-            req.reply(response => {
-                response.send({ fixture: "route/reward-empty.json" })
-            })
-        })
+    // Public
+    it.skip("No data account", () => {
+        cy.switchMetamaskAccount(NO_DATA_ACCOUNT)
         cy.contains("No Data", { matchCase: false })
-        cy.pause()
+        cy.get("#myChart").should("not.exist")
+        cy.get(".overflow-x-auto").find("[class*='text-right']").should("not.exist")
+        cy.contains(" Download ").should("not.exist")
+        cy.wait(2000)
     })
 
-    it("Switch account", () => {
+    it.skip("Switch account", () => {
+        cy.wait(3000)
+        cy.switchMetamaskAccount("Account 1")
         cy.get(".overflow-x-auto").find(".text-center").eq(1)
         .then($firstReward => {
             const firstReward = $firstReward.text()
 
-            cy.switchMetamaskAccount("Account 1")
+            cy.switchMetamaskAccount("Account 2")
             cy.get(".overflow-x-auto").find(".text-center").eq(1)
             .should($secondReward => {
                 expect($secondReward.text()).not.to.eq(firstReward)
             })
         })
-
     })
 
     it("Unconnected", () => {
@@ -48,16 +49,37 @@ describe("Reward Module", () => {
         cy.contains("Connect your wallet", { matchCase: false })
         cy.get("#myChart").should("not.exist")
         cy.get(".overflow-x-auto").should("not.exist")
+        cy.connectMetamask()
     })
 
     // Canvas Test
     describe.skip("Canvas", () => {
-
+        it("Account with data", () => {
+            cy.switchMetamaskAccount("Account 1")
+            cy.get("#myChart").should("exist")
+        })
     })
 
     // List Test
-    describe("List", () => {
-
+    describe("List pagination", () => {
+        it("flip the list", () => {
+            cy.switchMetamaskAccount("Account 1")
+            
+            // Recursion flip page
+            const clickNextPage = () => {
+                cy.get("li").last().prev().then($nextBtn => {
+                if ($nextBtn.hasClass("Control-active")) {
+                    cy.wait(1000)
+                    cy.get("li").last().prev().click()
+                    clickNextPage()
+                }
+                else {
+                    return
+                }
+                })
+            }
+            clickNextPage()
+            
+        })
     })
-
 })

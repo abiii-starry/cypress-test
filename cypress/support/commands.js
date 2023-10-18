@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 
-// Switch chain in staking web
+// Switch chain in staking web but not connect
 Cypress.Commands.add("switchChain", (chain) => {
     cy.get("#headlessui-listbox-button-1").click()
     cy.get("#headlessui-listbox-options-2").contains(chain, { matchCase: false }).click()
@@ -39,10 +39,37 @@ Cypress.Commands.add("disconnectWeb", (chain) => {
 })
 
 
+// Pre-operation of the connection
+Cypress.Commands.add("toConnect", () => {
+    const local = Cypress.config("baseUrl")
+    const connectedKey = "alreadyConnectedWallets"
+
+    cy.log("Connecting")
+    cy.get('.space-x-4 > .btn-primary').click()
+    cy.contains('MetaMask', {includeShadowDom: true}).click()
+
+    cy.getAllLocalStorage().then(localStorage => {
+        let connectedWallet = localStorage[local][connectedKey]
+        cy.log(`=========${connectedWallet}=========`)
+
+        if (connectedWallet != '["MetaMask"]') {
+            cy.acceptMetamaskAccess({ allAccounts: true })
+        }
+        else {
+            cy.log("Connected")
+        }
+        return new Promise((resolve, reject) => {
+            resolve(connectedWallet)
+        })
+    })
+
+})
+
+
 // Connect via Metamask
 Cypress.Commands.add("connectMetamask", (secret_words, network, password) => {
-    const local = Cypress.config("baseUrl");
-    const userKey = "user";
+    const local = Cypress.config("baseUrl")
+    const userKey = "user"
     cy.getAllLocalStorage().then(localStorage => {
         let userString = localStorage[local][userKey]
         let userJson = JSON.parse(userString)
@@ -60,4 +87,9 @@ Cypress.Commands.add("connectMetamask", (secret_words, network, password) => {
         }
         
     })
+})
+
+
+Cypress.Commands.add("setupMetamaskGlobal", () => {
+    
 })

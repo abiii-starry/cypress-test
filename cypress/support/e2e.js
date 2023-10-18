@@ -19,3 +19,4 @@ import '@synthetixio/synpress/support';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+

@@ -14,6 +14,10 @@ module.exports = defineConfig({
     },
     testIsolation: true,
     baseUrl: "https://pre.stake.dxpool.in",
-    supportFile: "cypress/support/e2e.js"
+    supportFile: "cypress/support/e2e.js",
+    specPattern: [
+      "cypress/e2e/**/connect-init.cy.js",
+      "cypress/e2e/**/*.cy.js"
+    ]
   },
 });
